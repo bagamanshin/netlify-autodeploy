@@ -1,0 +1,22 @@
+.card {
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid grey;
+  box-shadow: 8px 8px 8px 0px #c5ffc5;
+  max-width: 400px;
+  width: 100%;
+}
+
+.profile__avatar {
+  width: 100px;
+  height: 100px;
+  background-color: orchid;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.profile__badge {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
