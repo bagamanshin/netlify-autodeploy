@@ -7,9 +7,7 @@ const PORT = 3000;
 app.use(express.static(`${__dirname}/dist`));
 
 app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "/dist/404/", "index.html"), {
-    dotfiles: "allow",
-  });
+  res.sendFile(path.join(__dirname, "/dist/404/", "index.html"));
 });
 
 app.listen(PORT, () => {
