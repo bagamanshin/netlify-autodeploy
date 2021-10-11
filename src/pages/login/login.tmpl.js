@@ -16,7 +16,7 @@ const tmpl = `
         <button class="success">Log in</button>
         <br />
         <br />
-        <a href="/registration/index.html" style="color: orchid">Нет аккаунта?</a>
+        <a href="/registration" style="color: orchid">Нет аккаунта?</a>
       </div>
     </form>
   </div>

@@ -1,6 +1,6 @@
 export default `
 <div class="container">
-  <div class="back">
+  <div class="back" onclick="window.history.go(-1);">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"

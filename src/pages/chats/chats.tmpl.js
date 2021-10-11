@@ -1,7 +1,7 @@
 export default `
 <div class="chatlist">
   <div class="chatlist__head">
-    <p align="right">Profile ></p>
+    <p align="right"><a href="/profile">Profile ></a></p>
     <input type="text" placeholder="Search" />
   </div>
   <div class="chatlist__items">

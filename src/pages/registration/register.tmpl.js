@@ -36,7 +36,7 @@ const tmpl = `
       <button class="success">RegisterR</button>
       <br />
       <br />
-      <a href="/login/index.html" style="color: orchid">Log in</a>
+      <a href="/login" style="color: orchid">Log in</a>
     </div>
   </form>
 </div>
