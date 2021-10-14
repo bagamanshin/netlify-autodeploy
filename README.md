@@ -1,3 +1,7 @@
+### Ссылка на ПР первого спринта:
+
+https://github.com/bagamanshin/middle.messenger.praktikum.yandex/pull/1
+
 ## Описание
 
 Этот проект генерирует с помощью **Parcel** и **Handlebars** HTML-страницы для дальнейшей разработки мессенджера.
