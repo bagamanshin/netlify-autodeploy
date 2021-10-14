@@ -1,14 +1,16 @@
-const tmpl = `
+import "./login.scss";
+
+export default `
 <div class="login">
     <h1 align="center">Login</h1>
     <br />
     <form action="">
       <fieldset>
-        <input type="text" placeholder="" />
+        {{> loginInput}}
         <legend>Login</legend>
       </fieldset>
       <fieldset>
-        <input type="text" />
+        {{> passwordInput}}
         <legend>Password</legend>
       </fieldset>
       <br />
@@ -21,5 +23,3 @@ const tmpl = `
     </form>
   </div>
 `;
-
-export default tmpl;

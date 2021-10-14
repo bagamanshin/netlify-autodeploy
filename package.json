@@ -4,9 +4,8 @@
   "description": "",
   "scripts": {
     "dev": "parcel src/pages/**/**/*.html",
-    "build": "parcel build src/pages/**/*.html",
-    "start": "npm install && npm run build && node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "parcel build src/pages/**/**/*.html",
+    "start": "npm install && npm run build && node app.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +20,7 @@
   "devDependencies": {
     "@parcel/transformer-sass": "^2.0.0-rc.0",
     "parcel": "^2.0.0-rc.0",
-    "sass": "^1.42.1"
+    "sass": "^1.43.2"
   },
   "dependencies": {
     "express": "^4.17.1",

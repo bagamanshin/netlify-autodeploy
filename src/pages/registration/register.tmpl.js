@@ -1,3 +1,5 @@
+import "./register.scss";
+
 const tmpl = `
 <div class="register">
   <h1 align="center">Registration</h1>
@@ -5,35 +7,35 @@ const tmpl = `
   <form action="">
     <fieldset>
       <legend>Email</legend>
-      <input type="text" placeholder="" />
+      {{> emailInput}}
     </fieldset>
     <fieldset>
       <legend>Login</legend>
-      <input type="text" />
+      {{> loginInput}}
     </fieldset>
     <fieldset>
       <legend>Name</legend>
-      <input type="text" />
+      {{> firstNameInput}}
     </fieldset>
     <fieldset>
       <legend>Surname</legend>
-      <input type="text" />
+      {{> secondNameInput}}
     </fieldset>
     <fieldset>
       <legend>Phone number</legend>
-      <input type="text" />
+      {{> phoneInput}}
     </fieldset>
     <fieldset>
       <legend>Password</legend>
-      <input type="password" />
+      {{> passwordInput}}
     </fieldset>
     <fieldset>
       <legend>Repeat password</legend>
-      <input type="password" />
+      {{> repeatPasswordInput}}
     </fieldset>
     <br />
     <div align="right">
-      <button class="success">RegisterR</button>
+      <button class="success">Register</button>
       <br />
       <br />
       <a href="/login" style="color: orchid">Log in</a>

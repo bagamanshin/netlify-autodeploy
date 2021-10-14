@@ -1,3 +1,5 @@
+import "./profile.scss";
+
 export default `
 <div class="card profile">
   <div class="profile__badge">
@@ -7,33 +9,33 @@ export default `
 
   <form>
     <fieldset>
-      <input type="text" disabled value="User email" />
+      {{> emailInput }}
       <legend>Email</legend>
     </fieldset>
     <fieldset>
-      <input type="text" disabled value="User login" />
+      {{> loginInput }}
       <legend>Login</legend>
     </fieldset>
     <fieldset>
-      <input type="text" disabled value="User name" />
+      {{>firstNameInput }}
       <legend>Name</legend>
     </fieldset>
     <fieldset>
-      <input type="text" disabled value="User surname" />
+      {{> secondNameInput }}
       <legend>Surname</legend>
     </fieldset>
     <fieldset>
-      <input type="text" disabled value="User nickname" />
+      {{>displayNameInput }}
       <legend>Nickname</legend>
     </fieldset>
     <fieldset>
-      <input type="text" disabled value="User phone number" />
+      {{>phoneInput}}
       <legend>Phone number</legend>
     </fieldset>
     <br />
     <div align="right">
-      <button class="success" onclick="location.reload('/modules/edit')">Edit profile</button>
-      <button class="success">Edit password</button>
+      <a href="profile/modules/edit" class="button-link">Edit profile</a>
+      <a href="profile/modules/edit-password" class="button-link">Edit password</a>
       <button>Exit</button>
     </div>
   </form>

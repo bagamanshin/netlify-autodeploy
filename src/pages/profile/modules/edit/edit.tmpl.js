@@ -1,3 +1,5 @@
+import "./edit.scss";
+
 export default `
 <div class="card profile">
   <div class="profile__badge">
@@ -6,30 +8,30 @@ export default `
   </div>
 
   <form action="">
-    <fieldset>
-      <input type="text" value="User email" />
-      <legend>Email</legend>
-    </fieldset>
-    <fieldset>
-      <input type="text" value="User login" />
-      <legend>Login</legend>
-    </fieldset>
-    <fieldset>
-      <input type="text" value="User name" />
-      <legend>Name</legend>
-    </fieldset>
-    <fieldset>
-      <input type="text" value="User surname" />
-      <legend>Surname</legend>
-    </fieldset>
-    <fieldset>
-      <input type="text" value="User nickname" />
-      <legend>Nickname</legend>
-    </fieldset>
-    <fieldset>
-      <input type="text" value="User phone number" />
-      <legend>Phone number</legend>
-    </fieldset>
+  <fieldset>
+    {{> emailInput }}
+    <legend>Email</legend>
+  </fieldset>
+  <fieldset>
+    {{> loginInput }}
+    <legend>Login</legend>
+  </fieldset>
+  <fieldset>
+    {{>firstNameInput }}
+    <legend>Name</legend>
+  </fieldset>
+  <fieldset>
+    {{> secondNameInput }}
+    <legend>Surname</legend>
+  </fieldset>
+  <fieldset>
+    {{>displayNameInput }}
+    <legend>Nickname</legend>
+  </fieldset>
+  <fieldset>
+    {{>phoneInput}}
+    <legend>Phone number</legend>
+  </fieldset>
     <br />
     <div align="right">
       <button class="success">Save</button>

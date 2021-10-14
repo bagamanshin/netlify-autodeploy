@@ -1,7 +1,7 @@
 import Handlebars from "handlebars";
 
 import LayoutTmpl from "../../../../layout/profile/profile.tmpl";
-import EditTmpl from "./edit.tmpl";
+import EditTmpl from "./edit-password.tmpl";
 import InputComponentTmpl from "../../../../components/input/input.tmpl";
 
 import registerInputPartials from "../../../../utils/registerInputPartials";
@@ -9,29 +9,13 @@ import registerInputPartials from "../../../../utils/registerInputPartials";
 const InputComponentTemplate = Handlebars.compile(InputComponentTmpl);
 
 const inputsMap = {
-  emailInput: {
-    name: "email",
-    value: "User's email",
+  oldPassword: {
+    name: "oldPassword",
+    type: "password",
   },
-  loginInput: {
-    name: "login",
-    value: "User's login",
-  },
-  firstNameInput: {
-    name: "first_name",
-    value: "User's first name",
-  },
-  secondNameInput: {
-    name: "second_name",
-    value: "User's second name",
-  },
-  displayNameInput: {
-    name: "display_name",
-    value: "User's nickname",
-  },
-  phoneInput: {
-    name: "phone",
-    value: "8-800-555-3535",
+  newPassword: {
+    name: "newPassword",
+    type: "password",
   },
 };
 

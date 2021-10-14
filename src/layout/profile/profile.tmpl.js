@@ -1,3 +1,5 @@
+import "./profile.scss";
+
 export default `
 <div class="container">
   <div class="back" onclick="window.history.go(-1);">

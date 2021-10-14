@@ -1,3 +1,5 @@
+import "./chats.scss";
+
 export default `
 <div class="chatlist">
   <div class="chatlist__head">

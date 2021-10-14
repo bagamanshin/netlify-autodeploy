@@ -1,3 +1,5 @@
+import "./404.scss";
+
 export default `
   <h1>¯\\_| ✖ 〜 ✖ |_/¯</h1>
   <h2>404</h2>
