@@ -13,31 +13,37 @@ const inputsMap = {
     name: "email",
     value: "User's email",
     disabled: true,
+    className: "fieldset__input",
   },
   loginInput: {
     name: "login",
     value: "User's login",
     disabled: true,
+    className: "fieldset__input",
   },
   firstNameInput: {
     name: "first_name",
     value: "User's first name",
     disabled: true,
+    className: "fieldset__input",
   },
   secondNameInput: {
     name: "second_name",
     value: "User's second name",
     disabled: true,
+    className: "fieldset__input",
   },
   displayNameInput: {
     name: "display_name",
     value: "User's nickname",
     disabled: true,
+    className: "fieldset__input",
   },
   phoneInput: {
     name: "phone",
     value: "8-800-555-3535",
     disabled: true,
+    className: "fieldset__input",
   },
 };
 

@@ -13,10 +13,12 @@ const LayoutTemplate = Handlebars.compile(LayoutTmpl);
 const inputsMap = {
   loginInput: {
     name: "login",
+    className: "fieldset__input",
   },
   passwordInput: {
     name: "password",
     type: "password",
+    className: "fieldset__input",
   },
 };
 

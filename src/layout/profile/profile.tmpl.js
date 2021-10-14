@@ -1,7 +1,7 @@
 import "./profile.scss";
 
 export default `
-<div class="container">
+<div class="container container--center profile-container">
   <div class="back" onclick="window.history.go(-1);">
     <svg
       xmlns="http://www.w3.org/2000/svg"

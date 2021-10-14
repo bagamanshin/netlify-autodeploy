@@ -1,10 +1,8 @@
-import "./chats.scss";
-
 export default `
 <div class="chatlist">
   <div class="chatlist__head">
-    <p align="right"><a href="/profile">Profile ></a></p>
-    <input type="text" placeholder="Search" />
+    <p class="chatlist__head__text"><a href="../profile/index.html">Profile ></a></p>
+    {{> searchInput}}
   </div>
   <div class="chatlist__items">
     <div class="chatlist__content-box">

@@ -1,21 +1,19 @@
-import "./edit-password.scss";
-
 export default `
 <div class="card profile">
-  <h1>Change password</h1>
+  <h1 class="h2">Change password</h1>
 
   <form action="">
-  <fieldset>
+  <fieldset class="fieldset">
     {{> oldPassword }}
-    <legend>Old password</legend>
+    <legend class="fieldset__legend">Old password</legend>
   </fieldset>
-  <fieldset>
+  <fieldset class="fieldset">
     {{> newPassword }}
-    <legend>New password</legend>
+    <legend class="fieldset__legend">New password</legend>
   </fieldset>
     <br />
     <div align="right">
-      <button class="success">Change password</button>
+      <button class="button button--success">Change password</button>
     </div>
   </form>
 </div>

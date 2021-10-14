@@ -12,10 +12,12 @@ const inputsMap = {
   oldPassword: {
     name: "oldPassword",
     type: "password",
+    className: "fieldset__input",
   },
   newPassword: {
     name: "newPassword",
     type: "password",
+    className: "fieldset__input",
   },
 };
 

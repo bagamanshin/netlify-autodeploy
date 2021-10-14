@@ -1,10 +1,10 @@
 .login {
   border-radius: 20px;
   padding: 20px;
-  border: 1px solid var(var(--gray));
+  border: 1px solid var(--gray);
   box-shadow: 8px 8px 8px 0px var(--lightgreen);
-}
 
-h1 {
-  margin-bottom: 20px;
+  &__title {
+    margin-bottom: 20px;
+  }
 }

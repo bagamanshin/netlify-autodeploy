@@ -1,47 +1,43 @@
-import "./register.scss";
-
-const tmpl = `
+export default `
 <div class="register">
-  <h1 align="center">Registration</h1>
+  <h1 class="h2 register__title" align="center">Registration</h1>
   <br />
   <form action="">
-    <fieldset>
-      <legend>Email</legend>
+    <fieldset class="fieldset">
+      <legend class="fieldset__legend">Email</legend>
       {{> emailInput}}
     </fieldset>
-    <fieldset>
-      <legend>Login</legend>
+    <fieldset class="fieldset">
+      <legend class="fieldset__legend">Login</legend>
       {{> loginInput}}
     </fieldset>
-    <fieldset>
-      <legend>Name</legend>
+    <fieldset class="fieldset">
+      <legend class="fieldset__legend">Name</legend>
       {{> firstNameInput}}
     </fieldset>
-    <fieldset>
-      <legend>Surname</legend>
+    <fieldset class="fieldset">
+      <legend class="fieldset__legend">Surname</legend>
       {{> secondNameInput}}
     </fieldset>
-    <fieldset>
-      <legend>Phone number</legend>
+    <fieldset class="fieldset">
+      <legend class="fieldset__legend">Phone number</legend>
       {{> phoneInput}}
     </fieldset>
-    <fieldset>
-      <legend>Password</legend>
+    <fieldset class="fieldset">
+      <legend class="fieldset__legend">Password</legend>
       {{> passwordInput}}
     </fieldset>
-    <fieldset>
-      <legend>Repeat password</legend>
+    <fieldset class="fieldset">
+      <legend class="fieldset__legend">Repeat password</legend>
       {{> repeatPasswordInput}}
     </fieldset>
     <br />
     <div align="right">
-      <button class="success">Register</button>
+      <button class="button button--success">Register</button>
       <br />
       <br />
-      <a href="/login" style="color: orchid">Log in</a>
+      <a href="../login/index.html" style="color: orchid">Log in</a>
     </div>
   </form>
 </div>
 `;
-
-export default tmpl;

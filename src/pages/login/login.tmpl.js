@@ -1,21 +1,19 @@
-import "./login.scss";
-
 export default `
 <div class="login">
-    <h1 align="center">Login</h1>
+    <h1 class="h2 login__title" align="center">Login</h1>
     <br />
     <form action="">
-      <fieldset>
+      <fieldset class="fieldset">
         {{> loginInput}}
-        <legend>Login</legend>
+        <legend class="fieldset__legend">Login</legend>
       </fieldset>
-      <fieldset>
+      <fieldset class="fieldset">
         {{> passwordInput}}
-        <legend>Password</legend>
+        <legend class="fieldset__legend">Password</legend>
       </fieldset>
       <br />
       <div align="right">
-        <button class="success">Log in</button>
+        <button class="button button--success">Log in</button>
         <br />
         <br />
         <a href="/registration" style="color: orchid">Нет аккаунта?</a>

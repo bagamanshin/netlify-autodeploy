@@ -1,42 +1,40 @@
-import "./profile.scss";
-
 export default `
 <div class="card profile">
   <div class="profile__badge">
     <div class="profile__avatar"></div>
-    <h1>Ivan</h1>
+    <h1 class="h2">Ivan</h1>
   </div>
 
   <form>
-    <fieldset>
+    <fieldset class="fieldset">
       {{> emailInput }}
-      <legend>Email</legend>
+      <legend class="fieldset__legend">Email</legend>
     </fieldset>
-    <fieldset>
+    <fieldset class="fieldset">
       {{> loginInput }}
-      <legend>Login</legend>
+      <legend class="fieldset__legend">Login</legend>
     </fieldset>
-    <fieldset>
+    <fieldset class="fieldset">
       {{>firstNameInput }}
-      <legend>Name</legend>
+      <legend class="fieldset__legend">Name</legend>
     </fieldset>
-    <fieldset>
+    <fieldset class="fieldset">
       {{> secondNameInput }}
-      <legend>Surname</legend>
+      <legend class="fieldset__legend">Surname</legend>
     </fieldset>
-    <fieldset>
+    <fieldset class="fieldset">
       {{>displayNameInput }}
-      <legend>Nickname</legend>
+      <legend class="fieldset__legend">Nickname</legend>
     </fieldset>
-    <fieldset>
+    <fieldset class="fieldset">
       {{>phoneInput}}
-      <legend>Phone number</legend>
+      <legend class="fieldset__legend">Phone number</legend>
     </fieldset>
     <br />
     <div align="right">
-      <a href="profile/modules/edit" class="button-link">Edit profile</a>
-      <a href="profile/modules/edit-password" class="button-link">Edit password</a>
-      <button>Exit</button>
+      <a href="./modules/edit/index.html" class="button-link">Edit profile</a>
+      <a href="./modules/edit-password/index.html" class="button-link">Edit password</a>
+      <button class="button">Exit</button>
     </div>
   </form>
 </div>
