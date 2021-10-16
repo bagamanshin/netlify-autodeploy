@@ -1,0 +1,24 @@
+.profile-container {
+  position: relative;
+}
+
+.back {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: var(--lightgreen);
+  cursor: pointer;
+  border-radius: 20px;
+  border: 1px solid var(--gray);
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-left: 0;
+}
+.back svg {
+  transform: rotate(180deg);
+}

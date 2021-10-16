@@ -1,0 +1,91 @@
+html {
+  --green: green;
+  --white: white;
+  --black: black;
+  --gray: gray;
+  --orchid: orchid;
+  --lightgreen: #c5ffc5;
+  --lightorchid: #da70d638;
+  --lightgray: lightgray;
+  --lightergreen: #c5ffc57a;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  min-height: 100%;
+
+  &--center {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.h1 {
+  font-size: 70px;
+}
+
+.h2 {
+  font-size: 50px;
+}
+
+.fieldset {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid var(--green);
+  font-size: 0;
+  margin-bottom: 25px;
+
+  &__input {
+    border: 0;
+    outline: none;
+    appearance: none;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 16px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  &__legend {
+    position: absolute;
+    transform: translateY(-50%);
+    background-color: var(--white);
+    top: 0;
+    font-size: 16px;
+    margin-left: 15px;
+  }
+}
+
+.button {
+  border: 1px solid transparent;
+  background-color: var(--gray);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &--success {
+    background: var(--lightgreen);
+    border: 1px solid var(--green);
+    color: var(--black);
+  }
+}
+
+.card {
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid var(--gray);
+  box-shadow: 8px 8px 8px 0px var(--lightgreen);
+  max-width: 400px;
+  width: 100%;
+}
