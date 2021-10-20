@@ -1,4 +1,4 @@
-import "./profile.scss";
+import './profile.scss';
 
 export default `
 <div class="container container--center profile-container">
