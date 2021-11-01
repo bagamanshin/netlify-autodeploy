@@ -1,13 +1,24 @@
 import Handlebars from 'handlebars';
 
-import LayoutTmpl from '../../layout/main/main.tmpl';
-import tmpl from './404.tmpl';
+import MainLayout from '../../layout/main/main';
+import Block from '../../utils/block';
+import render from '../../utils/renderDOM';
+import template from './404.tmpl';
 
-const template = Handlebars.compile(tmpl);
-const LayoutTemplate = Handlebars.compile(LayoutTmpl);
+export default class Page404 extends Block {
+  constructor() {
+    super('div', { className: 'page404-container' });
+  }
 
-Handlebars.registerPartial('pageContent', template({}));
+  render(): string {
+    const compiledTemplate = Handlebars.compile(template);
 
-document.body.insertAdjacentHTML('afterbegin', LayoutTemplate({}));
+    return compiledTemplate({});
+  }
+}
 
-Handlebars.unregisterPartial('pageContent');
+const layout = new MainLayout();
+const page = new Page404();
+
+render('body', layout);
+render('.container.container--center', page);

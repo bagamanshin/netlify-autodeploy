@@ -1,31 +1,79 @@
 import Handlebars from 'handlebars';
 
-import LayoutTmpl from '../../../../layout/profile/profile.tmpl';
-import EditTmpl from './edit-password.tmpl';
-import InputComponentTmpl from '../../../../components/input/input.tmpl';
+import Block from '../../../../utils/block';
+import render from '../../../../utils/renderDOM';
 
-import registerInputPartials from '../../../../utils/registerInputPartials';
+import ProfileLayout from '../../../../layout/profile/profile';
+import Input from '../../../../components/input/input';
 
-const InputComponentTemplate = Handlebars.compile(InputComponentTmpl);
+import template from './edit-password.tmpl';
 
-const inputsMap = {
-  oldPassword: {
-    name: 'oldPassword',
-    type: 'password',
-    className: 'fieldset__input',
-  },
-  newPassword: {
-    name: 'newPassword',
-    type: 'password',
-    className: 'fieldset__input',
-  },
+export default class ProfileEditPasswordPage extends Block {
+  constructor() {
+    super('div', { className: 'card profile' });
+  }
+
+  render(): string {
+    const compiledTemplate = Handlebars.compile(template);
+
+    return compiledTemplate({});
+  }
+}
+
+const layout = new ProfileLayout();
+const page = new ProfileEditPasswordPage();
+
+const model = {
+  oldPassword: '',
+  newPassword: ''
 };
 
-registerInputPartials(inputsMap, InputComponentTemplate);
+const regexPassword = /^(?=.{8,20}$)(?=.*)(?=.*[A-Z])(?=.*[0-9]).*$/;
 
-const EditTemplate = Handlebars.compile(EditTmpl);
-const LayoutTemplate = Handlebars.compile(LayoutTmpl);
+const getValidationMixin = (regex, modifier) => ({
+  blur(e) {
+    if (!regex.test(e.target.value)) {
+      this.setProps({ errorMessage: `Incorrect ${modifier}`, value: e.target.value, ...!this.props.touched ? { touched: true } : {} });
+      page
+        .getContent()
+        .querySelector(`.fieldset--${modifier}`)
+        ?.classList.add('fieldset--error');
+    } else {
+      this.setProps({ errorMessage: '', value: e.target.value, ...!this.props.touched ? { touched: true } : {} });
+      page
+        .getContent()
+        .querySelector(`.fieldset--${modifier}`)
+        ?.classList.remove('fieldset--error');
+    }
+  }
+});
 
-Handlebars.registerPartial('pageContent', EditTemplate({}));
+const newPasswordInput = new Input({
+  name: 'repeat_password',
+  type: 'password',
+  inputClassName: 'fieldset__input',
+  events: {
+    input: (e) => {
+      model.newPassword = e.target.value;
+    },
+    ...getValidationMixin(regexPassword, 'new_password')
+  }
+});
 
-document.body.insertAdjacentHTML('afterbegin', LayoutTemplate({}));
+const oldPasswordInput = new Input({
+  name: 'password',
+  type: 'password',
+  inputClassName: 'fieldset__input',
+  events: {
+    input: (e) => {
+      model.oldPassword = e.target.value;
+    },
+    ...getValidationMixin(regexPassword, 'old_password')
+  }
+});
+
+render('body', layout);
+render('.container.container--center', page);
+
+render('.fieldset--old_password', oldPasswordInput);
+render('.fieldset--new_password', newPasswordInput);

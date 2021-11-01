@@ -1,57 +1,77 @@
 import Handlebars from 'handlebars';
 
-import LayoutTmpl from '../../layout/profile/profile.tmpl';
-import ProfileTmpl from './profile.tmpl';
-import InputComponentTmpl from '../../components/input/input.tmpl';
+import Block from '../../utils/block';
+import render from '../../utils/renderDOM';
 
-import registerInputPartials from '../../utils/registerInputPartials';
+import ProfileLayout from '../../layout/profile/profile';
+import Input from '../../components/input/input';
 
-const InputComponentTemplate = Handlebars.compile(InputComponentTmpl);
+import template from './profile.tmpl';
 
-const inputsMap = {
-  emailInput: {
-    name: 'email',
-    value: "User's email",
-    disabled: true,
-    className: 'fieldset__input',
-  },
-  loginInput: {
-    name: 'login',
-    value: "User's login",
-    disabled: true,
-    className: 'fieldset__input',
-  },
-  firstNameInput: {
-    name: 'first_name',
-    value: "User's first name",
-    disabled: true,
-    className: 'fieldset__input',
-  },
-  secondNameInput: {
-    name: 'second_name',
-    value: "User's second name",
-    disabled: true,
-    className: 'fieldset__input',
-  },
-  displayNameInput: {
-    name: 'display_name',
-    value: "User's nickname",
-    disabled: true,
-    className: 'fieldset__input',
-  },
-  phoneInput: {
-    name: 'phone',
-    value: '8-800-555-3535',
-    disabled: true,
-    className: 'fieldset__input',
-  },
+const model = {
+  login: 'Nickname',
+  email: 'mail@mail.com',
+  first_name: 'First',
+  second_name: 'Second',
+  phone: '88005553535',
+  password: '123123123D'
 };
 
-registerInputPartials(inputsMap, InputComponentTemplate);
+export default class ProfilePage extends Block {
+  constructor() {
+    super('div', { className: 'card profile' });
+  }
 
-const ProfileTemplate = Handlebars.compile(ProfileTmpl);
-const LayoutTemplate = Handlebars.compile(LayoutTmpl);
+  render(): string {
+    const compiledTemplate = Handlebars.compile(template);
 
-Handlebars.registerPartial('pageContent', ProfileTemplate({}));
+    return compiledTemplate({ nickname: model.login });
+  }
+}
 
-document.body.insertAdjacentHTML('afterbegin', LayoutTemplate({}));
+const layout = new ProfileLayout();
+const page = new ProfilePage();
+
+const loginInput = new Input({
+  inputClassName: 'fieldset__input',
+  name: 'login',
+  disabled: true,
+  value: model.login
+});
+
+const emailInput = new Input({
+  inputClassName: 'fieldset__input',
+  name: 'email',
+  disabled: true,
+  value: model.email
+});
+
+const firstNameInput = new Input({
+  inputClassName: 'fieldset__input',
+  name: 'first_name',
+  disabled: true,
+  value: model.first_name
+});
+
+const secondNameInput = new Input({
+  inputClassName: 'fieldset__input',
+  name: 'second_name',
+  disabled: true,
+  value: model.second_name
+});
+
+const phoneInput = new Input({
+  inputClassName: 'fieldset__input',
+  name: 'phone',
+  disabled: true,
+  value: model.phone
+});
+
+render('body', layout);
+render('.container.container--center', page);
+
+render('.fieldset--email', emailInput);
+render('.fieldset--login', loginInput);
+render('.fieldset--first_name', firstNameInput);
+render('.fieldset--second_name', secondNameInput);
+render('.fieldset--phone', phoneInput);

@@ -1,3 +1,17 @@
 input {
   border: 0;
 }
+
+.input-component-wrap {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.invalid-input-error {
+  position: absolute;
+  top: calc(100% + 6px);
+  font-size: 12px;
+  right: 10px;
+  color: red
+}

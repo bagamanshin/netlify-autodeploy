@@ -48,6 +48,23 @@
       pointer-events: none;
       color: var(--white);
     }
+
+    &__date {
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    &__unread-count {
+      display: inline-block;
+      text-align: center;
+      line-height: 25px;
+      width: 25px;
+      height: 25px;
+      background-color: var(--lightgreen);
+      border-radius: 50%;
+      margin-top: 5px;
+    }
+
     &--active {
       & .chatlist__item__unread-count {
         background-color: var(--lightgreen);
@@ -73,33 +90,23 @@
       flex: 1;
       margin-right: 15px;
     }
+
     &__right {
       text-align: right;
     }
+
     &__author,
     &__author-you {
       font-weight: bold;
     }
-    &__date {
-      font-size: 12px;
-      color: var(--gray);
-    }
-    &__unread-count {
-      display: inline-block;
-      text-align: center;
-      line-height: 25px;
-      width: 25px;
-      height: 25px;
-      background-color: var(--lightgreen);
-      border-radius: 50%;
-      margin-top: 5px;
-    }
   }
+
   &__items {
     display: flex;
     overflow-y: auto;
     border-right: 1px solid var(--gray);
   }
+
   &__content-box {
     display: flex;
     flex-direction: column;
@@ -107,16 +114,19 @@
     width: 100%;
   }
 }
+
 .chat-thread {
   display: flex;
   flex: 1;
   flex-direction: column;
+
   &__empty {
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 1;
   }
+
   &__head {
     display: flex;
     flex-direction: row;
@@ -124,14 +134,17 @@
     justify-content: space-between;
     border-bottom: 1px solid var(--gray);
     padding: 10px 20px;
+
     &__left {
       display: flex;
       flex-direction: row;
       align-items: center;
     }
+
     &__settings__button {
       display: flex;
       flex-direction: column;
+
       &__dot {
         width: 5px;
         height: 5px;
@@ -141,17 +154,20 @@
       }
     }
   }
+
   &__content {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     flex: 1;
+
     &__overview-date {
       padding: 24px 20px;
       text-align: center;
       border-bottom: 1px dashed var(--lightgray);
     }
   }
+
   &__message {
     max-width: 40%;
     width: max-content;
@@ -159,51 +175,63 @@
     padding: 20px;
     border-radius: 20px;
     margin-bottom: 20px;
-    box-shadow: 8px 8px 8px 0px var(--lightergreen);
+    box-shadow: 8px 8px 8px 0 var(--lightergreen);
+
     &--not-you {
       border-top-left-radius: 0;
     }
+
     &--you {
       margin-left: auto;
       border-bottom-right-radius: 0;
-      box-shadow: 8px 8px 8px 0px var(--lightorchid);
+      box-shadow: 8px 8px 8px 0 var(--lightorchid);
     }
+
     &__bottom-line {
       display: flex;
       margin-top: 15px;
       align-items: center;
       justify-content: end;
     }
+
     &__status {
       font-size: 0;
       margin-right: -12px;
     }
+
     &--sent .chat-thread__message__status svg path {
       stroke: var(--lightgray);
     }
+
     &--sent .chat-thread__message__status svg .second-check {
       display: none;
     }
+
     &--delivered .chat-thread__message__status svg path {
       stroke: --gray;
     }
+
     &--seen .chat-thread__message__status svg path {
       stroke: var(--orchid);
     }
+
     &__date {
       color: var(--gray);
       font-size: 12px;
       line-height: 1;
       margin-right: 5px;
     }
+
     &__content__image {
       max-width: 100%;
     }
   }
+
   &__actions {
     display: flex;
     padding: 20px;
     border-top: 1px dashed var(--gray);
+
     &__send {
       cursor: pointer;
       width: 50px;
@@ -216,10 +244,12 @@
       transform: rotate(-90deg);
       align-self: flex-end;
     }
+
     &__attach {
       margin-top: 10px;
       cursor: pointer;
     }
+
     &__input {
       flex: 1;
       margin-left: 20px;

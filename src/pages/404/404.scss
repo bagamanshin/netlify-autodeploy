@@ -1,6 +1,13 @@
+.page404-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .title-404 {
   margin: 0 auto;
 }
+
 .subtitle-404 {
   color: var(--orchid);
 }

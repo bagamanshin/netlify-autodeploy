@@ -1,51 +1,125 @@
 import Handlebars from 'handlebars';
 
-import LayoutTmpl from '../../../../layout/profile/profile.tmpl';
-import EditTmpl from './edit.tmpl';
-import InputComponentTmpl from '../../../../components/input/input.tmpl';
+import Block from '../../../../utils/block';
+import render from '../../../../utils/renderDOM';
 
-import registerInputPartials from '../../../../utils/registerInputPartials';
+import ProfileLayout from '../../../../layout/profile/profile';
+import Input from '../../../../components/input/input';
 
-const InputComponentTemplate = Handlebars.compile(InputComponentTmpl);
+import template from './edit.tmpl';
 
-const inputsMap = {
-  emailInput: {
-    name: 'email',
-    value: "User's email",
-    className: 'fieldset__input',
-  },
-  loginInput: {
-    name: 'login',
-    value: "User's login",
-    className: 'fieldset__input',
-  },
-  firstNameInput: {
-    name: 'first_name',
-    value: "User's first name",
-    className: 'fieldset__input',
-  },
-  secondNameInput: {
-    name: 'second_name',
-    value: "User's second name",
-    className: 'fieldset__input',
-  },
-  displayNameInput: {
-    name: 'display_name',
-    value: "User's nickname",
-    className: 'fieldset__input',
-  },
-  phoneInput: {
-    name: 'phone',
-    value: '8-800-555-3535',
-    className: 'fieldset__input',
-  },
+const model = {
+  login: 'Nickname',
+  email: 'mail@mail.com',
+  first_name: 'First',
+  second_name: 'Second',
+  phone: '88005553535',
+  password: '123123123D'
 };
 
-registerInputPartials(inputsMap, InputComponentTemplate);
+export default class ProfileEditPasswordPage extends Block {
+  constructor() {
+    super('div', { className: 'card profile' });
+  }
 
-const EditTemplate = Handlebars.compile(EditTmpl);
-const LayoutTemplate = Handlebars.compile(LayoutTmpl);
+  render(): string {
+    const compiledTemplate = Handlebars.compile(template);
 
-Handlebars.registerPartial('pageContent', EditTemplate({}));
+    return compiledTemplate({ nickname: model.login });
+  }
+}
 
-document.body.insertAdjacentHTML('afterbegin', LayoutTemplate({}));
+const layout = new ProfileLayout();
+const page = new ProfileEditPasswordPage();
+
+const regexLogin = /^(?=.{3,20}$)[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*$/;
+const regexEmail = /^[a-zA-Z0-9_!#$%&'*+=?`{|}~^.-]+@[a-zA-Z]+\.[a-z]+$/;
+const regexPhone = /^[0-9+]\d{9,14}$/;
+const regexName = /^[A-ZА-ЯЁ][a-zA-Zа-яА-ЯёЁ-]*$/;
+
+const getValidationMixin = (regex, modifier) => ({
+  blur(e) {
+    if (!regex.test(e.target.value)) {
+      this.setProps({ errorMessage: `Incorrect ${modifier}`, value: e.target.value, ...!this.props.touched ? { touched: true } : {} });
+      page
+        .getContent()
+        .querySelector(`.fieldset--${modifier}`)
+        ?.classList.add('fieldset--error');
+    } else {
+      this.setProps({ errorMessage: '', value: e.target.value, ...!this.props.touched ? { touched: true } : {} });
+      page
+        .getContent()
+        .querySelector(`.fieldset--${modifier}`)
+        ?.classList.remove('fieldset--error');
+    }
+  }
+});
+
+const loginInput = new Input({
+  inputClassName: 'fieldset__input',
+  name: 'login',
+  value: model.login,
+  events: {
+    input: (e) => {
+      model.login = e.target.value;
+    },
+    ...getValidationMixin(regexLogin, 'login')
+  }
+});
+
+const emailInput = new Input({
+  inputClassName: 'fieldset__input',
+  name: 'email',
+  value: model.email,
+  events: {
+    input: (e) => {
+      model.email = e.target.value;
+    },
+    ...getValidationMixin(regexEmail, 'email')
+  }
+});
+
+const firstNameInput = new Input({
+  inputClassName: 'fieldset__input',
+  name: 'first_name',
+  value: model.first_name,
+  events: {
+    input: (e) => {
+      model.first_name = e.target.value;
+    },
+    ...getValidationMixin(regexName, 'first_name')
+  }
+});
+
+const secondNameInput = new Input({
+  inputClassName: 'fieldset__input',
+  name: 'second_name',
+  value: model.second_name,
+  events: {
+    input: (e) => {
+      model.second_name = e.target.value;
+    },
+    ...getValidationMixin(regexName, 'second_name')
+  }
+});
+
+const phoneInput = new Input({
+  inputClassName: 'fieldset__input',
+  name: 'phone',
+  value: model.phone,
+  events: {
+    input: (e) => {
+      model.phone = e.target.value;
+    },
+    ...getValidationMixin(regexPhone, 'phone')
+  }
+});
+
+render('body', layout);
+render('.container.container--center', page);
+
+render('.fieldset--email', emailInput);
+render('.fieldset--login', loginInput);
+render('.fieldset--first_name', firstNameInput);
+render('.fieldset--second_name', secondNameInput);
+render('.fieldset--phone', phoneInput);
