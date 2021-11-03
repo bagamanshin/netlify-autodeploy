@@ -1,3 +1,8 @@
+.chats-page {
+  display: flex;
+  width: 100%;
+}
+
 .chatlist {
   width: 300px;
   display: flex;
@@ -237,12 +242,12 @@
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background-color: var(--orchid);
       display: flex;
       align-items: center;
       justify-content: center;
       transform: rotate(-90deg);
       align-self: flex-end;
+      background: var(--orchid) url(../../../static/images/arrow.svg) center no-repeat;
     }
 
     &__attach {

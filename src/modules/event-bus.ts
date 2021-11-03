@@ -1,4 +1,4 @@
-export default class EventBus {
+export class EventBus {
   listeners = {} as Record<string, Function[]>;
 
   on(event: string, callback: Function): void {
@@ -27,3 +27,5 @@ export default class EventBus {
     this.listeners[event].forEach((listener: Function) => listener(...args));
   }
 }
+
+export default new EventBus();

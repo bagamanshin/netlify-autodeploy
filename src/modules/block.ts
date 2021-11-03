@@ -1,19 +1,17 @@
 import { v4 as makeUUID } from 'uuid';
-import EventBus from './event-bus';
+import { EventBus } from './event-bus';
 
-interface IProps {
+export interface IBlockProps {
   className?: string;
   /* eslint-disable-next-line */
-  events?: GlobalEventHandlersEventMap;
-  text?: string;
+  events?: Partial<Record<keyof GlobalEventHandlersEventMap, Function>>;
   settings?: {
     withInternalId: boolean;
   };
   __id?: string | null;
-  touched?: boolean;
 }
 
-export default abstract class Block<T extends HTMLElement = HTMLElement> {
+export default abstract class Block<T extends HTMLElement = HTMLElement, U = IBlockProps> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -25,13 +23,13 @@ export default abstract class Block<T extends HTMLElement = HTMLElement> {
 
   _id: string | null = null;
 
-  _meta: { tagName: string; props: Partial<IProps & T> };
+  _meta: { tagName: string; props: Partial<U & T & IBlockProps> };
 
-  props: Partial<IProps & T>;
+  props: Partial<U & T & IBlockProps>;
 
   eventBus: EventBus;
 
-  constructor(tagName: string = 'div', props: Partial<IProps & T> = {}) {
+  constructor(tagName: string = 'div', props: Partial<U & T & IBlockProps> = {}) {
     const eventBus = new EventBus();
 
     /* eslint no-underscore-dangle: 0 */
@@ -58,7 +56,7 @@ export default abstract class Block<T extends HTMLElement = HTMLElement> {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _prepareEventsCallbacks(props: Partial<IProps & T>) {
+  _prepareEventsCallbacks(props: Partial<U & T & IBlockProps>) {
     const { events = {} } = props;
 
     Object.keys(events).forEach((eventName) => {
@@ -106,7 +104,7 @@ export default abstract class Block<T extends HTMLElement = HTMLElement> {
 
   componentDidMount() {}
 
-  _componentDidUpdate(oldProps: IProps & T, newProps: IProps & T): void {
+  _componentDidUpdate(oldProps: U & T & IBlockProps, newProps: U & T & IBlockProps): void {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
@@ -116,14 +114,14 @@ export default abstract class Block<T extends HTMLElement = HTMLElement> {
 
   componentDidUpdate(
     /* eslint-disable-next-line */
-    oldProps: IProps & T,
+    oldProps: U & T & IBlockProps,
     /* eslint-disable-next-line */
-    newProps: IProps & T
+    newProps: U & T & IBlockProps
   ): boolean {
     return JSON.stringify(oldProps) !== JSON.stringify(newProps);
   }
 
-  setProps(nextProps: Partial<IProps & T>) {
+  setProps(nextProps: Partial<U & T & IBlockProps>) {
     if (!nextProps) {
       return;
     }
@@ -162,7 +160,7 @@ export default abstract class Block<T extends HTMLElement = HTMLElement> {
     return this.element;
   }
 
-  _makePropsProxy = (props: Partial<IProps & T>) =>
+  _makePropsProxy = (props: Partial<U & T & IBlockProps>) =>
     /* eslint-disable-next-line */
     new Proxy(props, {
       // get(target, prop: string) {

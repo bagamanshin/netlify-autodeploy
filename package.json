@@ -9,7 +9,7 @@
     "build": "npm run clean && npm run build:parcel",
     "start": "npm install && npm run build && node app.js",
     "lint": "eslint . --ext .ts",
-    "lint:styles": "stylelint '**/*.{css,scss,sass}'"
+    "lint:styles": "stylelint '**/*.{scss,sass}'"
   },
   "repository": {
     "type": "git",

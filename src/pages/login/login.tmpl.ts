@@ -9,11 +9,9 @@ export default `
     <legend class="fieldset__legend">Password</legend>
   </fieldset>
   <br />
-  <div align="right">
-    <button class="button button--success">Log in</button>
+  <div class="form-actions">
+    <a href="/registration" style="color: orchid">No account?</a>
     <br />
-    <br />
-    <a href="/registration" style="color: orchid">Нет аккаунта?</a>
   </div>
 </form>
 `;

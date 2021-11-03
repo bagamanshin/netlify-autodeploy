@@ -1,21 +1,32 @@
 import Handlebars from 'handlebars';
 
-import Block from '../../utils/block';
+import Block, { IBlockProps } from '../../modules/block';
 import template from './input.tmpl';
 import './input.scss';
 
-type InputType = HTMLInputElement & {
+interface IInputProps{
   inputClassName?: string;
   errorMessage?: string;
-};
+  touched?: boolean;
+}
 
-export default class Input extends Block<InputType> {
-  constructor(props) {
+export default class Input extends Block<HTMLInputElement, IInputProps> {
+  constructor(props: IInputProps & Partial<HTMLInputElement & IBlockProps>) {
     const wrapClass = 'input-component-wrap';
     super('span', {
       ...props,
       className: props.className ? `${props.className} ${wrapClass}` : wrapClass,
-      touched: false
+      touched: false,
+      value: props.value || '',
+      events: {
+        ...(props.events ? props.events : {}),
+        blur(e: InputEvent) {
+          if (props.events?.blur) props.events.blur.call(this, e);
+          if (!this.props.touched) {
+            this.setProps({ touched: true });
+          }
+        }
+      }
     });
   }
 
@@ -23,7 +34,6 @@ export default class Input extends Block<InputType> {
     const compiledTemplate = Handlebars.compile(template);
 
     const {
-      text = '',
       inputClassName = '',
       type = '',
       value = '',
@@ -33,7 +43,6 @@ export default class Input extends Block<InputType> {
     } = this.props;
 
     return compiledTemplate({
-      text,
       inputClassName,
       type,
       value,

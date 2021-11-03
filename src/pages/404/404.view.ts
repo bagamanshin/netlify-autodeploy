@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 
-import MainLayout from '../../layout/main/main';
-import Block from '../../utils/block';
+import MainLayout from '../../layout/main';
+import Block from '../../modules/block';
 import render from '../../utils/renderDOM';
 import template from './404.tmpl';
 

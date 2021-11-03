@@ -24,9 +24,7 @@ export default `
     <legend class="fieldset__legend">Repeat password</legend>
   </fieldset>
   <br />
-  <div align="right">
-    <button class="button button--success">Register</button>
-    <br />
+  <div class="form-actions">
     <br />
     <a href="../login/index.html" style="color: orchid">Log in</a>
   </div>

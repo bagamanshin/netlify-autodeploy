@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 
-import Block from '../../utils/block';
+import Block from '../../modules/block';
 import template from './profile.tmpl';
 import './profile.scss';
 

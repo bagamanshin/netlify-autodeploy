@@ -21,10 +21,9 @@ export default `
     <legend class="fieldset__legend">Phone number</legend>
   </fieldset>
   <br />
-  <div align="right">
+  <div align="right" class="actions">
     <a href="./modules/edit/index.html" class="button-link">Edit profile</a>
     <a href="./modules/edit-password/index.html" class="button-link">Edit password</a>
-    <button class="button">Exit</button>
   </div>
 </form>
 `;

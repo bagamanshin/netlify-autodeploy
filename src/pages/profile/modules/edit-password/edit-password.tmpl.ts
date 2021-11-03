@@ -9,8 +9,7 @@ export default `
     <legend class="fieldset__legend">New password</legend>
   </fieldset>
   <br />
-  <div align="right">
-    <button class="button button--success">Change password</button>
+  <div align="right" class="actions">
   </div>
 </form>
 `;
