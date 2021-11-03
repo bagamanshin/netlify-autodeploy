@@ -7,5 +7,5 @@
     "color-hex-case": "lower",
     "no-empty-source": null
   },
-  "ignoreFiles": ["dist/*"]
+  "ignoreFiles": ["dist/**/*.css"]
 }
