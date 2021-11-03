@@ -7,7 +7,7 @@
     "clean": "rm -rf dist .cache .parcel-cache",
     "build:parcel": "parcel build src/pages/index.html",
     "build": "npm run clean && npm run build:parcel",
-    "start": "npm install && npm run build && node app.js",
+    "start": "npm install && npm run build && node app.ts",
     "lint": "eslint . --ext .ts",
     "lint:styles": "stylelint '**/*.{scss,sass}'"
   },

@@ -1,6 +1,6 @@
-### Ссылка на ПР первого спринта:
+### Ссылка на ПР второго спринта:
 
-https://github.com/bagamanshin/middle.messenger.praktikum.yandex/pull/1
+https://github.com/bagamanshin/middle.messenger.praktikum.yandex/pull/2
 
 ## Описание
 
