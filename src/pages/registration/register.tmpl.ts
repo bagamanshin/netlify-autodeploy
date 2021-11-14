@@ -26,7 +26,7 @@ export default `
   <br />
   <div class="form-actions">
     <br />
-    <a href="../login/index.html" style="color: orchid">Log in</a>
+    <a href="../login/index.html" class="text--pinky">Log in</a>
   </div>
 </form>
 `;

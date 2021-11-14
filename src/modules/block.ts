@@ -4,7 +4,7 @@ import { EventBus } from './event-bus';
 export interface IBlockProps {
   className?: string;
   /* eslint-disable-next-line */
-  events?: Partial<Record<keyof GlobalEventHandlersEventMap, Function>>;
+  events?: Partial<Record<keyof GlobalEventHandlersEventMap, (...args: any[]) => void>>;
   settings?: {
     withInternalId: boolean;
   };
@@ -59,8 +59,9 @@ export default abstract class Block<T extends HTMLElement = HTMLElement, U = IBl
   _prepareEventsCallbacks(props: Partial<U & T & IBlockProps>) {
     const { events = {} } = props;
 
-    Object.keys(events).forEach((eventName) => {
-      events[eventName] = events[eventName].bind(this);
+    /* eslint-disable-next-line */
+    Object.keys(events).forEach((eventName: keyof GlobalEventHandlersEventMap) => {
+      events[eventName] = events[eventName]!.bind(this);
     });
   }
 
@@ -74,16 +75,18 @@ export default abstract class Block<T extends HTMLElement = HTMLElement, U = IBl
   _removeEvents(): void {
     const { events = {} } = this.props;
 
-    Object.keys(events).forEach((eventName) => {
-      this._element.removeEventListener(eventName, events[eventName]);
+    /* eslint-disable-next-line */
+    Object.keys(events).forEach((eventName: keyof GlobalEventHandlersEventMap) => {
+      this._element.removeEventListener(eventName, events[eventName]!);
     });
   }
 
   _addEvents(): void {
     const { events = {} } = this.props;
 
-    Object.keys(events).forEach((eventName) => {
-      this._element.addEventListener(eventName, events[eventName], true);
+    /* eslint-disable-next-line */
+    Object.keys(events).forEach((eventName: keyof GlobalEventHandlersEventMap) => {
+      this._element.addEventListener(eventName, events[eventName]!, true);
     });
   }
 
@@ -163,21 +166,6 @@ export default abstract class Block<T extends HTMLElement = HTMLElement, U = IBl
   _makePropsProxy = (props: Partial<U & T & IBlockProps>) =>
     /* eslint-disable-next-line */
     new Proxy(props, {
-      // get(target, prop: string) {
-      //   const value = target[prop];
-      //   return typeof value === 'function' ? value.bind(target) : value;
-      // },
-      // set(target, prop: string, value) {
-      //   // Запускаем обновление компоненты
-      //   self.eventBus.emit(
-      //     Block.EVENTS.FLOW_CDU,
-      //     { ...target },
-      //     { ...target, [prop]: value }
-      //   );
-      //   /* eslint-disable-next-line */
-      //   target[prop] = value;
-      //   return true;
-      // },
       deleteProperty() {
         throw new Error('Нет доступа');
       }
@@ -200,10 +188,10 @@ export default abstract class Block<T extends HTMLElement = HTMLElement, U = IBl
   };
 
   show(): void {
-    this.getContent().style.display = 'block';
+    this.getContent().classList.remove('hidden');
   }
 
   hide(): void {
-    this.getContent().style.display = 'none';
+    this.getContent().classList.add('hidden');
   }
 }

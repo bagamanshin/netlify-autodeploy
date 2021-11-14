@@ -7,32 +7,55 @@ enum METHODS {
   DELETE = 'DELETE'
 }
 
-function queryStringify(data) {
-  if (typeof data !== 'object') {
-    throw new Error('Data must be object');
+type PlainObject<T = unknown> = {
+  [k in string]: T;
+};
+
+function isPlainObject(value: unknown): value is PlainObject {
+  return typeof value === 'object'
+    && value !== null
+    && value.constructor === Object
+    && Object.prototype.toString.call(value) === '[object Object]';
+}
+
+function isArray(value: unknown): value is [] {
+  return Array.isArray(value);
+}
+
+function isArrayOrObject(value: unknown): value is [] | PlainObject {
+  return isPlainObject(value) || isArray(value);
+}
+
+function getKey(key: string, parentKey?: string) {
+  return parentKey ? `${parentKey}[${key}]` : key;
+}
+
+function getParams(data: PlainObject | [], parentKey?: string) {
+  const result: [string, string][] = [];
+
+  Object.entries(data).forEach(([key, value]) => {
+    if (isArrayOrObject(value)) {
+      result.push(...getParams(value, getKey(key, parentKey)));
+    } else {
+      result.push([getKey(key, parentKey), encodeURIComponent(String(value))]);
+    }
+  });
+
+  return result;
+}
+
+function queryStringify(data: PlainObject) {
+  if (!isPlainObject(data)) {
+    throw new Error('input must be an object');
   }
 
-  // Здесь достаточно и [object Object] для объекта
-  const keys = Object.keys(data);
-  return keys.reduce(
-    (result, key, index) => `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`,
-    '?'
-  );
+  return getParams(data).map((arr) => arr.join('=')).join('&');
 }
 
 type OptionsType = {
   headers: Record<string, string>;
   method: keyof typeof METHODS;
-  data:
-    | Document
-    | string
-    | Blob
-    | ArrayBufferView
-    | ArrayBuffer
-    | FormData
-    | URLSearchParams
-    | null
-    | undefined;
+  data: any;
   timeout: number;
 };
 
@@ -62,7 +85,7 @@ export default class HTTPTransport {
     options: Partial<OptionsType> = {},
     timeout = 5000
   ) => {
-    const { headers = {}, method, data } = options;
+    const { headers = { 'Content-Type': 'application/json' }, method, data } = options;
 
     return new Promise((resolve, reject): void => {
       if (!method) {
