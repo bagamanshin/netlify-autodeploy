@@ -1,0 +1,32 @@
+.tooltip {
+  position: absolute;
+  right: 11px;
+  top: 100%;
+  background: white;
+  width: max-content;
+  padding: 20px;
+  border: 1px solid var(--gray);
+  border-radius: 20px;
+  border-top-right-radius: 0;
+  box-shadow: 8px 8px 8px 0 var(--lightorchid);
+
+  &__inner__item {
+    padding: 10px 5px 10px 10px;
+    border-bottom: 1px dashed var(--gray);
+    cursor: pointer;
+    user-select: none;
+    text-align: right;
+
+    &:hover {
+      color: var(--green);
+    }
+
+    &:last-child {
+      border-bottom: 0;
+
+      &:hover {
+        color: var(--error);
+      }
+    }
+  }
+}

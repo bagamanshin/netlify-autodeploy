@@ -1,10 +1,16 @@
-import bus from '../../modules/event-bus';
+import { bus } from '../../modules';
 
 import Input from '../../components/input';
 import Button from '../../components/button';
+import Link from '../../components/link';
+
+import authApi from '../../api/auth-api';
+import authService from '../../modules/services/auth';
+
+import { LoginRequest } from '../../types';
 
 export default class LoginController {
-  controls: Record<string, Record<string, Input | Button>>;
+  controls: Record<string, Record<string, Input | Button | Link>>;
 
   constructor() {
     this.controls = {
@@ -48,7 +54,31 @@ export default class LoginController {
             }
           }
         })
+      },
+      links: {
+        goToRegisterPage: new Link({
+          className: 'text--pinky',
+          text: 'No account?',
+          href: '/sign-up'
+        })
       }
     };
+
+    bus.on('login:signin', this.signin);
+  }
+
+  signin = (user: LoginRequest) => {
+    this.controls.buttons.login.setProps({ disabled: true });
+
+    authApi
+      .request(user)
+      .then((result) => {
+        this.controls.buttons.login.setProps({ disabled: false });
+        if (result.ok) {
+          authService.fetchUser();
+        } else {
+          console.log('You are NOT logged in!');
+        }
+      });
   }
 }

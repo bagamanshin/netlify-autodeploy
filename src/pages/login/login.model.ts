@@ -1,4 +1,4 @@
-import bus from '../../modules/event-bus';
+import { bus } from '../../modules';
 
 import { regexLogin, regexPassword } from '../../utils/validationRegex';
 
@@ -31,13 +31,13 @@ bus.on('login:check-form', () => {
 
   const validationResults: boolean[] = [];
 
-  Object.keys(data).forEach((field) => {
+  Object.keys(data).forEach((field: keyof LoginDataType) => {
     const validResult = validationMap[field].test(data[field]);
     setTimeout(() => bus.emit(validResult ? 'login:valid-field' : 'login:invalid-field', field));
     validationResults.push(validResult);
   });
 
   if (validationResults.every((i: boolean) => i)) {
-    console.log('Form data:', data);
+    bus.emit('login:signin', data);
   }
 });

@@ -1,4 +1,5 @@
-import bus from '../../../../modules/event-bus';
+import userPasswordApi from '../../../../api/user-password-api';
+import { bus } from '../../../../modules';
 
 import { regexPassword } from '../../../../utils/validationRegex';
 
@@ -43,7 +44,13 @@ bus.on('edit-password:check-form', () => {
   });
 
   if (validationResults.every((i: boolean) => i)) {
-    console.log('Form data:', data);
+    bus.emit('user:update-password-start');
+    userPasswordApi.update({
+      oldPassword: data.old_password,
+      newPassword: data.new_password
+    }).then((response) => {
+      bus.emit('user:update-password-end', response.ok);
+    });
   }
 });
 

@@ -1,0 +1,14 @@
+.link {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.link--back {
+  background: url('../../../static/images/arrow-black.svg') center no-repeat;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  transform: scale(-1);
+}

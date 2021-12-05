@@ -1,4 +1,4 @@
-import bus from '../../../../modules/event-bus';
+import { bus } from '../../../../modules';
 
 import Input from '../../../../components/input';
 import Button from '../../../../components/button';
@@ -7,6 +7,15 @@ export default class RegisterController {
   controls: Record<string, Record<string, Input | Button>>;
 
   constructor() {
+    bus.on('user:update-password-start', () => {
+      this.controls.buttons.save.setProps({ disabled: true });
+    });
+    bus.on('user:update-password-end', (status: boolean) => {
+      this.controls.buttons.save.setProps({ disabled: false });
+      if (status) {
+        bus.emit('navigateBack');
+      }
+    });
     this.controls = {
       inputs: {
         old_password: new Input({

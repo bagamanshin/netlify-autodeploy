@@ -1,4 +1,4 @@
-import bus from '../../modules/event-bus';
+import { bus } from '../../modules';
 
 import {
   regexLogin,
@@ -68,6 +68,13 @@ bus.on('register:check-form', () => {
   });
 
   if (validationResults.every((i: boolean) => i)) {
-    console.log('Form data:', data);
+    bus.emit('register:create', {
+      first_name: data.first_name,
+      second_name: data.second_name,
+      login: data.login,
+      email: data.email,
+      password: data.password,
+      phone: data.phone
+    });
   }
 });

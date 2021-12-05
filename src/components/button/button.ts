@@ -1,18 +1,16 @@
 import Handlebars from 'handlebars';
 
-import Block, { IBlockProps } from '../../modules/block';
+import { Block } from '../../modules';
 import template from './button.tmpl';
 
 import './button.scss';
 
+import { IBlockProps } from '../../modules/Block/types';
+import ButtonStatus from './enums';
+
 interface IButtonProps {
   text?: string;
   status?: 'success' | 'error'
-}
-
-enum ButtonStatus {
-  Success = 'success',
-  Error = 'error',
 }
 
 export default class Button extends Block<HTMLButtonElement, IButtonProps> {

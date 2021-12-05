@@ -1,10 +1,19 @@
-import bus from '../../modules/event-bus';
+import { bus } from '../../modules';
 
 import Input from '../../components/input';
 import Button from '../../components/button';
+import Link from '../../components/link';
+
+import authApi from '../../api/auth-api';
+import authService from '../../modules/services/auth';
+import { RegisterRequest } from '../../types';
 
 export default class RegisterController {
-  controls: Record<string, Record<string, Input | Button>>;
+  controls: {
+    inputs: Record<string, Input>,
+    buttons: Record<string, Button>,
+    links: Record<string, Link>,
+  };
 
   constructor() {
     const instance = this;
@@ -118,7 +127,28 @@ export default class RegisterController {
             }
           }
         })
+      },
+      links: {
+        goToLoginPage: new Link({
+          className: 'text--pinky',
+          text: 'Log in',
+          href: '/'
+        })
       }
     };
+
+    bus.on('register:create', this.signup);
+  }
+
+  signup = (user: RegisterRequest) => {
+    this.controls.buttons.register.setProps({ disabled: true });
+    authApi
+      .create(user)
+      .then((result) => {
+        this.controls.buttons.register.setProps({ disabled: false });
+        if (result.ok) {
+          authService.fetchUser();
+        }
+      });
   }
 }

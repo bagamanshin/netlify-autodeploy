@@ -1,0 +1,57 @@
+.fieldset--title {
+  border-color: var(--orchid);
+}
+
+.popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__inner {
+    background-color: var(--white);
+    padding-top: 60px;
+
+    &.popup__inner--create-chat {
+      box-shadow: 8px 8px 8px 0 var(--lightorchid);
+    }
+
+    &__form-actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      &__create {
+        background-color: transparent;
+        border-color: var(--orchid);
+        color: var(--orchid);
+
+        &:hover {
+          background-color: var(--orchid);
+          color: var(--white);
+        }
+      }
+
+      &__close {
+        background-color: transparent;
+        border-color: var(--gray);
+        color: var(--gray);
+
+        &:hover {
+          background-color: var(--gray);
+          color: var(--white);
+        }
+      }
+
+      .button {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+    }
+  }
+}

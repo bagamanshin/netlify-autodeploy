@@ -1,13 +1,21 @@
 import Handlebars from 'handlebars';
 
-import Block from '../../modules/block';
-import render from '../../utils/renderDOM';
-import bus from '../../modules/event-bus';
+import './login.scss';
 
-import MainLayout from '../../layout/main';
+import { Block, bus } from '../../modules';
+
+import render from '../../utils/renderDOM';
+
+import layout from '../../layout/main';
 import template from './login.tmpl';
 
 import LoginController from './login.controller';
+
+import setInputValidationStatus from '../../utils/inputValidationStatus';
+
+const loginController = new LoginController();
+
+type InputType = keyof typeof loginController.controls.inputs;
 
 export default class LoginPage extends Block {
   constructor() {
@@ -19,55 +27,35 @@ export default class LoginPage extends Block {
 
     return compiledTemplate({});
   }
-}
 
-const layout = new MainLayout();
-const page = new LoginPage();
+  hide() {
+    Block.prototype.hide.call(this);
+    Object.keys(loginController.controls.inputs).forEach((field: InputType) => {
+      setInputValidationStatus.call(this, loginController.controls.inputs, field, 'valid');
+    });
+  }
 
-const loginController = new LoginController();
+  renderDOM(rootQuery: string): void {
+    layout.renderDOM(rootQuery);
 
-type InputValidationStatus = 'valid' | 'invalid';
-type InputType = keyof typeof loginController.controls.inputs;
+    bus.on('login:valid-field', (field: InputType) => {
+      setInputValidationStatus.call(this, loginController.controls.inputs, field, 'valid');
+    });
+    bus.on('login:invalid-field', (field: InputType) => {
+      setInputValidationStatus.call(this, loginController.controls.inputs, field, 'invalid');
+    });
+    bus.on('login:reset-check-results', () => {
+      Object.keys(loginController.controls.inputs).forEach((field: InputType) => {
+        setInputValidationStatus.call(this, loginController.controls.inputs, field, 'valid');
+      });
+    });
 
-function setInputValidationStatus(field: InputType, status: InputValidationStatus) {
-  switch (status) {
-    case 'valid':
-      loginController.controls.inputs[field].setProps({ errorMessage: '' });
-      page
-        .getContent()
-        .querySelector(`.fieldset--${field}`)
-        ?.classList.remove('fieldset--error');
-      break;
-    case 'invalid':
-      loginController.controls.inputs[field].setProps({ errorMessage: `Incorrect ${field}` });
-      page
-        .getContent()
-        .querySelector(`.fieldset--${field}`)
-        ?.classList.add('fieldset--error');
-      break;
-    default:
-      break;
+    render('.main-container', this);
+
+    render('.login .fieldset--login', loginController.controls.inputs.login);
+    render('.login .fieldset--password', loginController.controls.inputs.password);
+
+    render('.login .form-actions', loginController.controls.links.goToRegisterPage, 'before');
+    render('.login .form-actions', loginController.controls.buttons.login);
   }
 }
-
-bus.on('login:valid-field', (field: InputType) => {
-  setInputValidationStatus(field, 'valid');
-});
-
-bus.on('login:invalid-field', (field: InputType) => {
-  setInputValidationStatus(field, 'invalid');
-});
-
-bus.on('login:reset-check-results', () => {
-  Object.keys(loginController.controls.inputs).forEach((field: InputType) => {
-    setInputValidationStatus(field, 'valid');
-  });
-});
-
-render('body', layout);
-render('.container.container--center', page);
-
-render('.fieldset--login', loginController.controls.inputs.login);
-render('.fieldset--password', loginController.controls.inputs.password);
-
-render('.form-actions', loginController.controls.buttons.login);

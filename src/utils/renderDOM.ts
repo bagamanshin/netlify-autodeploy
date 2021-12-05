@@ -1,4 +1,4 @@
-import Block from '../modules/block';
+import { Block } from '../modules';
 
 type positionType = 'before' | 'after';
 

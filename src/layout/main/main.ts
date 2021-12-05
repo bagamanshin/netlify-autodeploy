@@ -1,13 +1,13 @@
 import Handlebars from 'handlebars';
 
-import Block from '../../modules/block';
 import template from './main.tmpl';
 import './main.scss';
+import Layout from '../modules/layout';
 
-export default class MainLayout extends Block {
+class MainLayout extends Layout {
   constructor() {
     super('div', {
-      className: 'container container--center'
+      className: 'container container--center main-container'
     });
   }
 
@@ -17,3 +17,5 @@ export default class MainLayout extends Block {
     return compiledTemplate({});
   }
 }
+
+export default new MainLayout();

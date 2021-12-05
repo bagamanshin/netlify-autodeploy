@@ -10,7 +10,6 @@ export default `
   </fieldset>
   <br />
   <div class="form-actions">
-    <a href="/registration" class="text--pinky">No account?</a>
     <br />
   </div>
 </form>

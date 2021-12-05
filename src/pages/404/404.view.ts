@@ -1,9 +1,18 @@
 import Handlebars from 'handlebars';
 
-import MainLayout from '../../layout/main';
-import Block from '../../modules/block';
-import render from '../../utils/renderDOM';
+import './404.scss';
+
+import layout from '../../layout/main';
+
+import { Block } from '../../modules';
+
+import Page404Controller from './404.controller';
+
 import template from './404.tmpl';
+
+import render from '../../utils/renderDOM';
+
+const page404Controller = new Page404Controller();
 
 export default class Page404 extends Block {
   constructor() {
@@ -15,10 +24,11 @@ export default class Page404 extends Block {
 
     return compiledTemplate({});
   }
+
+  renderDOM(rootQuery: string) {
+    layout.renderDOM(rootQuery);
+    render('.main-container', this);
+
+    render('.page404-container .actions', page404Controller.controls.links.goToMainPage);
+  }
 }
-
-const layout = new MainLayout();
-const page = new Page404();
-
-render('body', layout);
-render('.container.container--center', page);

@@ -6,8 +6,9 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static(`${__dirname}/dist`));
 
+// @ts-ignore
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/dist/404/', 'index.html'));
+  res.sendFile(path.join(__dirname, '/dist/', 'index.html'));
 });
 
 app.listen(PORT, () => {

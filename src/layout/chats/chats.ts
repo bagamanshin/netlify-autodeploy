@@ -1,10 +1,11 @@
 import Handlebars from 'handlebars';
 
-import Block from '../../modules/block';
 import template from './chats.tmpl';
 import './chats.scss';
 
-export default class ChatsLayout extends Block {
+import Layout from '../modules/layout';
+
+class ChatsLayout extends Layout {
   constructor() {
     super('div', {
       className: 'container chats-container'
@@ -17,3 +18,5 @@ export default class ChatsLayout extends Block {
     return compiledTemplate({});
   }
 }
+
+export default new ChatsLayout();

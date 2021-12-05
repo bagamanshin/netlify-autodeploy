@@ -1,17 +1,22 @@
 import Handlebars from 'handlebars';
 
-import Block, { IBlockProps } from '../../modules/block';
+import { MessageAuthorIdentity } from '../../enums';
+
+import { Block } from '../../modules';
 import template from './message.tmpl';
 
-Handlebars.registerHelper('equals', function (string1, string2, options) {
-  if (string1 === string2) {
+import { IBlockProps } from '../../modules/Block/types';
+
+Handlebars.registerHelper('isYou', function (string1, options) {
+  if (string1 === MessageAuthorIdentity.you) {
     return options.fn(this);
   }
   return options.inverse(this);
 });
 
 interface IMessageProps {
-  sender: 'you' | 'not-you';
+  senderIdentity: MessageAuthorIdentity;
+  sender: string;
   status?: 'sent' | 'delivered' | 'seen';
   content: string;
   date: string;
@@ -21,15 +26,19 @@ export default class Message extends Block<HTMLDivElement, IMessageProps> {
   constructor(props: IMessageProps & Partial<IBlockProps>) {
     super('div', {
       ...props,
-      className: `chat-thread__message chat-thread__message--${props.sender} chat-thread__message--${props.status}`
+      className: `chat-thread__message chat-thread__message--${props.senderIdentity} chat-thread__message--${props.status}`
     });
   }
 
   render() {
     const compiledTemplate = Handlebars.compile(template);
 
-    const { content, date, sender } = this.props;
+    const {
+      content, date, senderIdentity, sender
+    } = this.props;
 
-    return compiledTemplate({ content, date, sender });
+    return compiledTemplate({
+      content, date, senderIdentity, sender
+    });
   }
 }

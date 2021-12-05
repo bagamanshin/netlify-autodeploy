@@ -1,9 +1,18 @@
 import Handlebars from 'handlebars';
 
-import MainLayout from '../../layout/main';
-import Block from '../../modules/block';
-import render from '../../utils/renderDOM';
+import './500.scss';
+
+import layout from '../../layout/main';
+
+import { Block } from '../../modules';
+
+import Page500Controller from './500.controller';
+
 import template from './500.tmpl';
+
+import render from '../../utils/renderDOM';
+
+const page500Controller = new Page500Controller();
 
 export default class Page500 extends Block {
   constructor() {
@@ -15,10 +24,11 @@ export default class Page500 extends Block {
 
     return compiledTemplate({});
   }
+
+  renderDOM(rootQuery: string) {
+    layout.renderDOM(rootQuery);
+    render('.main-container', this);
+
+    render('.page500-container .actions', page500Controller.controls.links.goToMainPage);
+  }
 }
-
-const layout = new MainLayout();
-const page = new Page500();
-
-render('body', layout);
-render('.container.container--center', page);

@@ -4,16 +4,16 @@
 }
 
 .chatlist {
-  width: 300px;
+  width: 340px;
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: --lightgray;
 
   &__head {
     padding: 20px;
     border-right: 1px solid var(--gray);
     border-bottom: 1px solid var(--gray);
+    border-left: 1px solid var(--gray);
     border-bottom-left-radius: 20px;
     background-color: var(--white);
 
@@ -45,18 +45,26 @@
     cursor: pointer;
     background-color: var(--white);
 
+    &__inner {
+      width: 100%;
+      display: flex;
+    }
+
     &--active#{&} {
       margin-left: 0;
       margin-right: 0;
       border-radius: 0;
       background-color: var(--orchid);
-      pointer-events: none;
+      border-color: var(--orchid);
       color: var(--white);
+      padding-left: 30px;
+      padding-right: 30px;
     }
 
     &__date {
       font-size: 12px;
       color: var(--gray);
+      max-width: 70px;
     }
 
     &__unread-count {
@@ -67,10 +75,38 @@
       height: 25px;
       background-color: var(--lightgreen);
       border-radius: 50%;
-      margin-top: 5px;
+      margin-left: 10px;
+    }
+
+    &__author,
+    &__name {
+      font-weight: bold;
+    }
+
+    &__message {
+      margin-top: 10px;
+
+      &--you {
+        .chatlist__item__author {
+          color: var(--orchid);
+        }
+      }
+
+      &--not-you {
+        .chatlist__item__author {
+          color: var(--green);
+        }
+      }
     }
 
     &--active {
+      .chatlist__item__message--you,
+      .chatlist__item__message--not-you {
+        .chatlist__item__author {
+          color: var(--white);
+        }
+      }
+
       & .chatlist__item__unread-count {
         background-color: var(--lightgreen);
         color: var(--black);
@@ -85,6 +121,7 @@
       width: 50px;
       height: 50px;
       border-radius: 50%;
+      overflow: hidden;
       background-color: var(--lightgray);
       margin-right: 15px;
     }
@@ -94,22 +131,26 @@
       flex-direction: column;
       flex: 1;
       margin-right: 15px;
+      justify-content: center;
     }
 
     &__right {
       text-align: right;
-    }
-
-    &__author,
-    &__author-you {
-      font-weight: bold;
+      align-items: center;
+      display: flex;
     }
   }
 
-  &__items {
+  &__items__wrap {
     display: flex;
     overflow-y: auto;
     border-right: 1px solid var(--gray);
+    flex: 1;
+  }
+
+  &__items {
+    width: 100%;
+    display: flex;
   }
 
   &__content-box {
@@ -117,6 +158,7 @@
     flex-direction: column;
     overflow-y: auto;
     width: 100%;
+    flex: 1;
   }
 }
 
@@ -124,12 +166,30 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  max-height: 100%;
 
   &__empty {
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 1;
+    flex-direction: column;
+
+    &__create {
+      margin-bottom: 0;
+
+      &__btn {
+        background-color: transparent;
+        border-color: var(--orchid);
+        color: var(--orchid);
+        margin-left: 10px;
+
+        &:hover {
+          background-color: var(--orchid);
+          color: var(--white);
+        }
+      }
+    }
   }
 
   &__head {
@@ -146,16 +206,25 @@
       align-items: center;
     }
 
-    &__settings__button {
-      display: flex;
-      flex-direction: column;
+    &__right {
+      position: relative;
+    }
 
-      &__dot {
-        width: 5px;
-        height: 5px;
-        background-color: var(--gray);
-        border-radius: 50%;
-        margin: 1px 0;
+    &__settings {
+      padding: 10px;
+      cursor: pointer;
+
+      &__button {
+        display: flex;
+        flex-direction: column;
+
+        &__dot {
+          width: 5px;
+          height: 5px;
+          background-color: var(--gray);
+          border-radius: 50%;
+          margin: 1px 0;
+        }
       }
     }
   }
@@ -163,7 +232,7 @@
   &__content {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow: hidden;
     flex: 1;
 
     &__overview-date {
@@ -186,10 +255,20 @@
       border-top-left-radius: 0;
     }
 
+    &__sender {
+      font-weight: bold;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
     &--you {
       margin-left: auto;
       border-bottom-right-radius: 0;
       box-shadow: 8px 8px 8px 0 var(--lightorchid);
+
+      .chat-thread__message__sender {
+        color: var(--orchid);
+      }
     }
 
     &__bottom-line {
@@ -247,7 +326,9 @@
       justify-content: center;
       transform: rotate(-90deg);
       align-self: flex-end;
-      background: var(--orchid) url(../../../static/images/arrow.svg) center no-repeat;
+      background:
+        var(--orchid) url(../../../static/images/arrow.svg) center
+        no-repeat;
     }
 
     &__attach {
@@ -282,6 +363,9 @@
 }
 
 .chat-thread__messages {
+  &__inner {
+    padding: 20px;
+  }
+
   overflow-y: auto;
-  padding: 20px;
 }

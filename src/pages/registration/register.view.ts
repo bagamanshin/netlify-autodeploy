@@ -1,13 +1,20 @@
 import Handlebars from 'handlebars';
 
-import Block from '../../modules/block';
-import render from '../../utils/renderDOM';
-import bus from '../../modules/event-bus';
+import './register.scss';
 
-import MainLayout from '../../layout/main';
+import { Block, bus } from '../../modules';
+
+import layout from '../../layout/main';
 import template from './register.tmpl';
 
 import RegisterController from './register.controller';
+
+import render from '../../utils/renderDOM';
+import setInputValidationStatus from '../../utils/inputValidationStatus';
+
+const registerController = new RegisterController();
+
+type InputType = keyof typeof registerController.controls.inputs;
 
 export default class RegisterPage extends Block {
   constructor() {
@@ -19,60 +26,42 @@ export default class RegisterPage extends Block {
 
     return compiledTemplate({});
   }
-}
 
-const layout = new MainLayout();
-const page = new RegisterPage();
+  hide() {
+    Block.prototype.hide.call(this);
+    Object.keys(registerController.controls.inputs).forEach((field: InputType) => {
+      setInputValidationStatus.call(this, registerController.controls.inputs, field, 'valid');
+    });
+  }
 
-const registerController = new RegisterController();
+  renderDOM(rootQuery: string): void {
+    layout.renderDOM(rootQuery);
 
-type InputValidationStatus = 'valid' | 'invalid';
-type InputType = keyof typeof registerController.controls.inputs;
+    bus.on('register:valid-field', (field: InputType) => {
+      setInputValidationStatus.call(this, registerController.controls.inputs, field, 'valid');
+    });
 
-function setInputValidationStatus(field: InputType, status: InputValidationStatus) {
-  switch (status) {
-    case 'valid':
-      registerController.controls.inputs[field].setProps({ errorMessage: '' });
-      page
-        .getContent()
-        .querySelector(`.fieldset--${field}`)
-        ?.classList.remove('fieldset--error');
-      break;
-    case 'invalid':
-      registerController.controls.inputs[field].setProps({ errorMessage: `Incorrect ${field}` });
-      page
-        .getContent()
-        .querySelector(`.fieldset--${field}`)
-        ?.classList.add('fieldset--error');
-      break;
-    default:
-      break;
+    bus.on('register:invalid-field', (field: InputType) => {
+      setInputValidationStatus.call(this, registerController.controls.inputs, field, 'invalid');
+    });
+
+    bus.on('register:reset-check-results', () => {
+      Object.keys(registerController.controls.inputs).forEach((field: InputType) => {
+        setInputValidationStatus.call(this, registerController.controls.inputs, field, 'valid');
+      });
+    });
+
+    render('.main-container', this);
+
+    render('.register .fieldset--email', registerController.controls.inputs.email);
+    render('.register .fieldset--login', registerController.controls.inputs.login);
+    render('.register .fieldset--first_name', registerController.controls.inputs.first_name);
+    render('.register .fieldset--second_name', registerController.controls.inputs.second_name);
+    render('.register .fieldset--phone', registerController.controls.inputs.phone);
+    render('.register .fieldset--password', registerController.controls.inputs.password);
+    render('.register .fieldset--repeat_password', registerController.controls.inputs.repeat_password);
+
+    render('.register .form-actions', registerController.controls.buttons.register, 'before');
+    render('.register .form-actions', registerController.controls.links.goToLoginPage);
   }
 }
-
-bus.on('register:valid-field', (field: InputType) => {
-  setInputValidationStatus(field, 'valid');
-});
-
-bus.on('register:invalid-field', (field: InputType) => {
-  setInputValidationStatus(field, 'invalid');
-});
-
-bus.on('register:reset-check-results', () => {
-  Object.keys(registerController.controls.inputs).forEach((field: InputType) => {
-    setInputValidationStatus(field, 'valid');
-  });
-});
-
-render('body', layout);
-render('.container.container--center', page);
-
-render('.fieldset--email', registerController.controls.inputs.email);
-render('.fieldset--login', registerController.controls.inputs.login);
-render('.fieldset--first_name', registerController.controls.inputs.first_name);
-render('.fieldset--second_name', registerController.controls.inputs.second_name);
-render('.fieldset--phone', registerController.controls.inputs.phone);
-render('.fieldset--password', registerController.controls.inputs.password);
-render('.fieldset--repeat_password', registerController.controls.inputs.repeat_password);
-
-render('.form-actions', registerController.controls.buttons.register, 'before');

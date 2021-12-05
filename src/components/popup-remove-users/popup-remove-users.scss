@@ -1,0 +1,52 @@
+.popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__inner {
+    background-color: var(--white);
+    padding-top: 60px;
+    box-shadow: 8px 8px 8px 0 var(--lightergreen);
+
+    &__form-actions {
+      &__remove {
+        background-color: transparent;
+        border-color: var(--error);
+        color: var(--error);
+
+        &:hover {
+          background-color: var(--error);
+          color: var(--white);
+        }
+      }
+
+      &__close {
+        background-color: transparent;
+        border-color: var(--gray);
+        color: var(--gray);
+
+        &:hover {
+          background-color: var(--gray);
+          color: var(--white);
+        }
+      }
+    }
+
+    &--remove-user__form-actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      .button {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+    }
+  }
+}

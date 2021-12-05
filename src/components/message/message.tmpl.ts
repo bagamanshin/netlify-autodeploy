@@ -1,8 +1,13 @@
 export default `
+  {{#isYou senderIdentity}}
+    <div class="chat-thread__message__sender">You:</div>
+  {{else}}
+    <div class="chat-thread__message__sender">{{sender}}:</div>
+  {{/isYou}}
   <div class="chat-thread__message__content">{{content}}</div>
   <div class="chat-thread__message__bottom-line">
     <div class="chat-thread__message__date">{{date}}</div>
-    {{#equals sender "you"}}
+    {{#isYou senderIdentity}}
       <div class="chat-thread__message__status">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -29,6 +34,6 @@ export default `
           />
         </svg>
       </div>
-    {{/equals}}
+    {{/isYou}}
   </div>
 `;

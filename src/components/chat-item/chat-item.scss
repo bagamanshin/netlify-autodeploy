@@ -1,0 +1,14 @@
+.chatlist__item {
+  &__avatar {
+    &__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &__box {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

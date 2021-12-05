@@ -1,8 +1,12 @@
 import Handlebars from 'handlebars';
 
-import Block, { IBlockProps } from '../../modules/block';
+import { Block } from '../../modules';
+
 import template from './input.tmpl';
+
 import './input.scss';
+
+import { IBlockProps } from '../../modules/Block/types';
 
 interface IInputProps{
   inputClassName?: string;
@@ -22,7 +26,7 @@ export default class Input extends Block<HTMLInputElement, IInputProps> {
         ...(props.events ? props.events : {}),
         blur(e: InputEvent) {
           if (props.events?.blur) props.events.blur.call(this, e);
-          if (!this.props.touched) {
+          if (!this.props.touched && this.props.type !== 'file') {
             this.setProps({ touched: true });
           }
         }

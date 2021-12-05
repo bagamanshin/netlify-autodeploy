@@ -1,21 +1,30 @@
-import Handlebars from 'handlebars';
+import { Block } from '../../modules';
 
-import Block from '../../modules/block';
-import template from './textarea.tmpl';
+import { IBlockProps } from '../../modules/Block/types';
+
 import './textarea.scss';
 
-export default class Textarea extends Block {
-  constructor(props) {
+interface ITextAreaProps{
+  value: string;
+  placeholder: string
+}
+
+export default class Textarea extends Block<HTMLTextAreaElement, ITextAreaProps> {
+  constructor(props: ITextAreaProps & Partial<HTMLTextAreaElement & IBlockProps>) {
+    const wrapClass = 'chat-thread__actions__input';
     super('div', {
       ...props,
-      className: 'chat-thread__actions__input',
-      value: props.value || ''
+      className: props.className ? `${props.className} ${wrapClass}` : wrapClass,
+      placeholder: props.placeholder || ''
     });
   }
 
   render() {
-    const compiledTemplate = Handlebars.compile(template);
+    const textAreaElement = document.createElement('textarea');
+    textAreaElement.placeholder = this.props.placeholder!;
+    textAreaElement.rows = 2;
+    textAreaElement.value = this.props.value || '';
 
-    return compiledTemplate({});
+    return textAreaElement;
   }
 }
