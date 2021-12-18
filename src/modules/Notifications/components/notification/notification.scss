@@ -1,0 +1,73 @@
+.notification {
+  $root: &;
+
+  background-color: aquamarine;
+  max-width: 300px;
+  margin: 20px 20px 20px auto;
+  visibility: visible;
+  padding: 20px;
+  border-radius: 20px;
+  box-sizing: border-box;
+
+  &_success {
+    border: 1px solid var(--green);
+    background-color: var(--lightergreen);
+  }
+
+  &_error {
+    border: 1px solid var(--error);
+    background-color: var(--lighterror);
+
+    @at-root #{&} #{$root}__close {
+      &::before,
+      &::after {
+        background-color: var(--error);
+      }
+    }
+  }
+
+  &__close {
+    position: relative;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    margin-left: 20px;
+    overflow: hidden;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 1px;
+      height: 80%;
+      background-color: var(--black);
+      top: 50%;
+      left: 50%;
+    }
+
+    &::before {
+      transform: rotate(45deg) translate(0%, -50%);
+      transform-origin: 0 0;
+    }
+
+    &::after {
+      transform: rotate(-45deg) translate(0%, -50%);
+      transform-origin: 0 0;
+    }
+  }
+
+  &__title {
+    flex: auto;
+    font-size: 18px;
+    font-weight: 900;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__body {
+    margin-top: 10px;
+  }
+}

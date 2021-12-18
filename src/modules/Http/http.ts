@@ -91,7 +91,6 @@ export default class HTTPTransport {
         resolve(parseXHRResult(xhr));
 
         const { status } = xhr;
-
         switch (status) {
           case 401:
             bus.emit('user:logged', false);

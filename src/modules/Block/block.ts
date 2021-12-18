@@ -181,7 +181,6 @@ export default abstract class Block<
 
   abstract render(): string | HTMLElement | Promise<HTMLElement>;
 
-  // @ts-ignore
   // eslint-disable-next-line
   renderDOM(rootQuery: string): void {}
 

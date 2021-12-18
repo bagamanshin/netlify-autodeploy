@@ -66,6 +66,7 @@ describe('HTTP:', () => {
       xhr.respond(status, responseHeaders, response);
     };
   }
+  const XMLHttpRequestOriginal = global.XMLHttpRequest;
 
   beforeEach(() => {
     MockXhr = MockXMLHttpRequest.newMockXhr();
@@ -136,10 +137,6 @@ describe('HTTP:', () => {
 
     router.destroy();
     window.close();
-    // @ts-ignore
-    delete global.document;
-    // @ts-ignore
-    delete global.window;
   });
 
   it('should redirect after 500 status response', async () => {
@@ -176,10 +173,6 @@ describe('HTTP:', () => {
 
     router.destroy();
     window.close();
-    // @ts-ignore
-    delete global.document;
-    // @ts-ignore
-    delete global.window;
   });
 
   it('should redirect after 401 status response', async () => {
@@ -218,14 +211,9 @@ describe('HTTP:', () => {
 
     router.destroy();
     window.close();
-    // @ts-ignore
-    delete global.document;
-    // @ts-ignore
-    delete global.window;
   });
 
   afterEach(() => {
-    // @ts-ignore
-    delete global.XMLHttpRequest;
+    global.XMLHttpRequest = XMLHttpRequestOriginal;
   });
 });

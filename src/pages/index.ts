@@ -1,4 +1,4 @@
-import { Router } from '../modules';
+import { Router, Notifications } from '../modules';
 
 import LoginPage from './login';
 import RegisterPage from './registration';
@@ -26,4 +26,6 @@ authService.fetchUser().then(() => {
     .use('/404', Page404, { permissions: [Roles.user, Roles.guest] })
     .use('/500', Page500, { permissions: [Roles.user, Roles.guest] })
     .start();
+
+  (new Notifications()).init();
 });

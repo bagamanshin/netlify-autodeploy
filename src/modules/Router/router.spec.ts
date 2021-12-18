@@ -7,27 +7,31 @@ import { Roles } from '../../enums';
 
 import { Block, bus, Router } from '..';
 
+declare global {
+  interface History {
+    __stack: Array<string | URL | null | undefined>,
+    __length: number
+  }
+}
+
 function firePopstateOnRoute(window: DOMWindow): void {
   const { history } = window;
+
   const originalBack = history.back;
   const originalPushState = history.pushState;
   const originalForwards = history.forward;
 
-  // @ts-ignore
   history.__stack = [window.location.pathname];
-  // @ts-ignore
+
   history.__length = history.__stack.length;
 
-  history.pushState = function patchedBack(this: History, ...args: Parameters<History['back']>): void {
+  history.pushState = function patchedBack(this: History, ...args: Parameters<History['pushState']>): void {
     originalPushState.apply(this, args);
 
-    // @ts-ignore
     const path = args[2];
 
-    // @ts-ignore
     history.__length += 1;
 
-    // @ts-ignore
     history.__stack.push(path);
     window.dispatchEvent(new window.PopStateEvent('popstate'));
   };
@@ -35,14 +39,13 @@ function firePopstateOnRoute(window: DOMWindow): void {
   history.back = function patchedBack(this: History, ...args: Parameters<History['back']>): void {
     originalBack.apply(this, args);
 
-    // @ts-ignore
     history.__length -= 1;
-    // @ts-ignore
+
     const path = history.__stack[history.__length - 1];
 
     const event = new window.PopStateEvent('popstate');
 
-    // abstract off window.location.pathname
+    // abstract away from window.location.pathname
     if (path) {
       Object.defineProperty(event, 'currentTarget', {
         value: {
@@ -59,14 +62,13 @@ function firePopstateOnRoute(window: DOMWindow): void {
   history.forward = function patchedForward(this: History, ...args: Parameters<History['forward']>): void {
     originalForwards.apply(this, args);
 
-    // @ts-ignore
     history.__length += 1;
-    // @ts-ignore
+
     const path = history.__stack[history.__length - 1];
 
     const event = new window.PopStateEvent('popstate');
 
-    // abstract off window.location.pathname
+    // abstract away from window.location.pathname
     if (path) {
       Object.defineProperty(event, 'currentTarget', {
         value: {
@@ -124,8 +126,6 @@ describe('Router navigation:', () => {
     });
     firePopstateOnRoute(window);
 
-    // @ts-ignore
-    // eslint-disable-next-line
     global.document = window.document;
     // @ts-ignore
     global.window = window;
@@ -190,9 +190,5 @@ describe('Router navigation:', () => {
     document.close();
     bus.emit('user:logged', false);
     router.destroy();
-    // @ts-ignore
-    delete global.window;
-    // @ts-ignore
-    delete global.document;
   });
 });

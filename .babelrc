@@ -5,7 +5,12 @@
         "@babel/preset-typescript",
         ["@babel/preset-env", {"exclude": ["transform-regenerator"]}]
       ],
-      "plugins": ["babel-plugin-transform-scss"]
+      "plugins": [
+        "babel-plugin-transform-scss"
+      ]
     }
-  }
+  },
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }]
+  ]
 }
